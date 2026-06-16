@@ -1,0 +1,53 @@
+name: Deploy to GitHub Pages
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    concurrency:
+      group: pages
+      cancel-in-progress: true
+    env:
+      NPM_CONFIG_USERCONFIG: ${{ github.workspace }}/.npmrc
+      npm_config_userconfig: ${{ github.workspace }}/.npmrc
+      NPM_CONFIG_REGISTRY: https://registry.npmjs.org/
+      npm_config_registry: https://registry.npmjs.org/
+      NODE_AUTH_TOKEN: ""
+      NPM_TOKEN: ""
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Sanitize npm config (remove auth)
+        shell: bash
+        run: |
+          echo "Writing repo-local .npmrc" && rm -f "$NPM_CONFIG_USERCONFIG" || true
+          echo "registry=https://registry.npmjs.org/" > "$NPM_CONFIG_USERCONFIG"
+          echo "Before cleanup:" && npm config list || true
+          rm -f $HOME/.npmrc || true
+          npm config delete "//registry.npmjs.org/:_authToken" --location=user || true
+          npm config delete "//registry.npmjs.org/:_authToken" --location=global || true
+          npm config delete "//npm.pkg.github.com/:_authToken" --location=user || true
+          npm config delete "//npm.pkg.github.com/:_authToken" --location=global || true
+          echo "After cleanup:" && npm config list || true
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund --userconfig=${{ github.workspace }}/.npmrc
+      - run: npm run generate
+      - run: touch .output/public/.nojekyll
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .output/public
+
+      - uses: actions/deploy-pages@v4

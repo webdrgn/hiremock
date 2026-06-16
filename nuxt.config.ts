@@ -1,10 +1,13 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import Lara from '@primeuix/themes/lara';
 
+const productionBaseUrl = '/pixel-resume/';
+
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
   app: {
+    baseURL: productionBaseUrl,
     pageTransition: { name: 'page', mode: 'out-in' },
   },
   modules: [
