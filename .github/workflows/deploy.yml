@@ -14,9 +14,7 @@ jobs:
       cancel-in-progress: true
     env:
       NPM_CONFIG_USERCONFIG: ${{ github.workspace }}/.npmrc
-      npm_config_userconfig: ${{ github.workspace }}/.npmrc
       NPM_CONFIG_REGISTRY: https://registry.npmjs.org/
-      npm_config_registry: https://registry.npmjs.org/
       NODE_AUTH_TOKEN: ""
       NPM_TOKEN: ""
 
