@@ -9,6 +9,12 @@ export default defineNuxtConfig({
   app: {
     baseURL: productionBaseUrl,
     pageTransition: { name: 'page', mode: 'out-in' },
+    head: {
+      link: [
+        { rel: 'icon', type: 'image/svg+xml', href: `${productionBaseUrl}favicon.svg?v=2` },
+        { rel: 'shortcut icon', href: `${productionBaseUrl}favicon.svg?v=2` }
+      ]
+    }
   },
   modules: [
     '@primevue/nuxt-module'
@@ -26,5 +32,5 @@ export default defineNuxtConfig({
       '@tailwindcss/postcss': {},
     },
   },
-  css: ['@/assets/css/styles.css']
+  css: ['primeicons/primeicons.css', '@/assets/css/styles.css']
 })

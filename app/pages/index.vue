@@ -12,11 +12,15 @@
       />
     </div>
 
-    <h1 class="m-0 text-balance text-center text-lg leading-relaxed text-slate-100">
+    <h1
+      class="m-0 text-balance text-center text-lg leading-relaxed text-slate-100"
+    >
       Помоги Васе получить оффер
     </h1>
 
-    <p class="m-0 text-balance text-center text-[10px] leading-relaxed text-slate-400">
+    <p
+      class="m-0 text-balance text-center text-[10px] leading-relaxed text-slate-400"
+    >
       собеседование в формате zoom-звонка
     </p>
 
@@ -37,4 +41,7 @@
 <script setup>
 const { currentScreen, toNextScreen } = useScreenNavigate()
 
+useHead({
+  title: 'Помоги Васе получить оффер'
+})
 </script>

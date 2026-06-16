@@ -6,13 +6,16 @@
       class="flex animate-panel-rise items-center justify-between border-4 border-black bg-slate-800 px-3 py-2.5 text-sm max-sm:flex-col max-sm:items-start max-sm:gap-2"
     >
       <span class="inline-flex items-center gap-2.5 text-slate-400">
-        <span class="size-3.5 animate-rec-blink" aria-hidden="true" />
+        <span
+          class="size-3.5 animate-rec-blink"
+          aria-hidden="true"
+        />
         <span>REC · собеседование</span>
       </span>
       <span
         class="text-right text-[10px] leading-relaxed text-slate-400 max-sm:text-left"
       >
-        Раздел: {{ currentStage?.id }}
+        {{ currentStage?.name }}
         <br />
         Вопрос: {{ currentQuestion?.id }} / {{ currentStage?.questions.length }}
       </span>
@@ -80,7 +83,7 @@
               ? 'bg-emerald-500/10 text-emerald-400'
               : 'bg-yellow-400/10 text-yellow-300'
           "
-          >{{ currentSpeaker === "hr" ? "HR" : "Вы" }}</span
+          >{{ currentSpeaker === 'hr' ? 'HR' : 'Вы' }}</span
         >
         <span
           class="question-panel__typed block min-w-0 max-w-full flex-1 overflow-clip wrap-anywhere break-words leading-snug"
@@ -96,7 +99,7 @@
         :class="{
           '[animation-delay:60ms]': answerIndex === 1,
           '[animation-delay:120ms]': answerIndex === 2,
-          '[animation-delay:180ms]': answerIndex === 3,
+          '[animation-delay:180ms]': answerIndex === 3
         }"
         @click="handleAnswer(answer.text)"
         :disabled="buttonsDisabled"
@@ -104,47 +107,120 @@
         {{ answer?.text }}
       </Button>
     </section>
+
+    <footer
+      class="mx-auto flex w-full max-w-[520px] animate-panel-rise items-center justify-center gap-2 border-4 border-black bg-slate-950 p-2 [animation-delay:180ms] max-sm:max-w-full max-sm:flex-wrap"
+    >
+      <Button
+        aria-label="Микрофон"
+        class="!border-black !bg-slate-800 !text-slate-400 !transform-none !shadow-none !transition-colors !duration-150 hover:!bg-slate-900 hover:!text-slate-100 hover:!transform-none hover:!shadow-none active:!transform-none active:!shadow-none"
+      >
+        <template #icon>
+          <img
+            src="/assets/sprites/zoom-mic.svg"
+            alt=""
+            class="size-4"
+          />
+        </template>
+      </Button>
+
+      <Button
+        aria-label="Камера"
+        class="!border-black !bg-slate-800 !text-slate-400 !transform-none !shadow-none !transition-colors !duration-150 hover:!bg-slate-900 hover:!text-slate-100 hover:!transform-none hover:!shadow-none active:!transform-none active:!shadow-none"
+      >
+        <template #icon>
+          <img
+            src="/assets/sprites/zoom-camera.svg"
+            alt=""
+            class="size-4"
+          />
+        </template>
+      </Button>
+
+      <Button
+        aria-label="Участники"
+        class="!border-black !bg-slate-800 !text-slate-400 !transform-none !shadow-none !transition-colors !duration-150 hover:!bg-slate-900 hover:!text-slate-100 hover:!transform-none hover:!shadow-none active:!transform-none active:!shadow-none"
+      >
+        <template #icon>
+          <img
+            src="/assets/sprites/zoom-users.svg"
+            alt=""
+            class="size-4"
+          />
+        </template>
+      </Button>
+
+      <Button
+        aria-label="Чат"
+        class="!border-black !bg-slate-800 !text-slate-400 !transform-none !shadow-none !transition-colors !duration-150 hover:!bg-slate-900 hover:!text-slate-100 hover:!transform-none hover:!shadow-none active:!transform-none active:!shadow-none"
+      >
+        <template #icon>
+          <img
+            src="/assets/sprites/zoom-chat.svg"
+            alt=""
+            class="size-4"
+          />
+        </template>
+      </Button>
+
+      <Button
+        aria-label="Покинуть встречу"
+        class="!border-black !bg-red-500 !text-slate-100 !transform-none !shadow-none !transition-colors !duration-150 hover:!bg-red-600 hover:!text-slate-100 hover:!transform-none hover:!shadow-none active:!transform-none active:!shadow-none"
+      >
+        <template #icon>
+          <img
+            src="/assets/sprites/zoom-leave.svg"
+            alt=""
+            class="size-4"
+          />
+        </template>
+      </Button>
+    </footer>
   </div>
 </template>
 
 <script setup lang="ts">
-import { createTypewriter } from "~/utils/typewriter";
-import { PROMPT_DURATION } from "~/constants";
-import { Button } from "primevue";
+import { createTypewriter } from '~/utils/typewriter'
+import { PROMPT_DURATION } from '~/constants'
+import { Button } from 'primevue'
 
-type SpeakerSide = "hr" | "candidate";
+useHead({
+  title: 'Собеседование'
+})
+
+type SpeakerSide = 'hr' | 'candidate'
 
 const { currentStage, currentQuestion, isLastStageEnded, nextQuestion } =
-  useStages();
-const currentSpeaker = ref<SpeakerSide>("hr");
-const currentPrompt = ref(currentQuestion.value?.text ?? "");
-const animatedPrompt = ref("");
-const buttonsDisabled = ref(false);
+  useStages()
+const currentSpeaker = ref<SpeakerSide>('hr')
+const currentPrompt = ref(currentQuestion.value?.text ?? '')
+const animatedPrompt = ref('')
+const buttonsDisabled = ref(false)
 
-const { toNextScreen } = useScreenNavigate();
+const { toNextScreen } = useScreenNavigate()
 
-const runTyping = createTypewriter(animatedPrompt);
+const runTyping = createTypewriter(animatedPrompt)
 
-watch(currentPrompt, (newVal) => runTyping(newVal), { immediate: true });
+watch(currentPrompt, newVal => runTyping(newVal), { immediate: true })
 
 watch(isLastStageEnded, () => {
-  toNextScreen();
-});
+  toNextScreen()
+})
 
 const handleAnswer = (answer: string) => {
-  buttonsDisabled.value = true;
-  currentSpeaker.value = "candidate";
-  currentPrompt.value = answer;
+  buttonsDisabled.value = true
+  currentSpeaker.value = 'candidate'
+  currentPrompt.value = answer
 
   setTimeout(() => {
-    currentSpeaker.value = "hr";
-    currentPrompt.value = currentQuestion.value?.reaction ?? "";
+    currentSpeaker.value = 'hr'
+    currentPrompt.value = currentQuestion.value?.reaction ?? ''
 
     setTimeout(() => {
-      nextQuestion();
-      currentPrompt.value = currentQuestion.value?.text ?? "";
-      buttonsDisabled.value = false;
-    }, PROMPT_DURATION);
-  }, PROMPT_DURATION);
-};
+      nextQuestion()
+      currentPrompt.value = currentQuestion.value?.text ?? ''
+      buttonsDisabled.value = false
+    }, PROMPT_DURATION)
+  }, PROMPT_DURATION)
+}
 </script>

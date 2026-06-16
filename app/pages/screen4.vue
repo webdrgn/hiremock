@@ -45,7 +45,7 @@
             '[animation-delay:40ms]': reasonIndex === 1,
             '[animation-delay:80ms]': reasonIndex === 2,
             '[animation-delay:120ms]': reasonIndex === 3,
-            '[animation-delay:160ms]': reasonIndex === 4,
+            '[animation-delay:160ms]': reasonIndex === 4
           }"
         >
           <span
@@ -71,11 +71,14 @@
             '[animation-delay:40ms]': ratingIndex === 1,
             '[animation-delay:80ms]': ratingIndex === 2,
             '[animation-delay:120ms]': ratingIndex === 3,
-            '[animation-delay:160ms]': ratingIndex === 4,
+            '[animation-delay:160ms]': ratingIndex === 4
           }"
         >
           <span class="text-slate-400">{{ ratingRow.caption }}</span>
-          <div class="flex gap-[3px]" aria-hidden="true">
+          <div
+            class="flex gap-[3px]"
+            aria-hidden="true"
+          >
             <span
               v-for="blockIndex in ratingRow.totalCount"
               :key="blockIndex"
@@ -106,28 +109,32 @@
 </template>
 
 <script setup>
-import game from "~/storage/game.json";
+import game from '~/storage/game.json'
 
-const interviewOutcome = game.final;
-const outreachMessage = game.offer.text;
+useHead({
+  title: 'Итоги собеседования'
+})
+
+const interviewOutcome = game.final
+const outreachMessage = game.offer.text
 
 const ratingCaptions = {
-  tech: "Техника",
-  business: "Бизнес",
-  ownership: "Ownership",
-  communication: "Коммуникация",
-};
+  tech: 'Техника',
+  business: 'Бизнес',
+  ownership: 'Ownership',
+  communication: 'Коммуникация'
+}
 
 const ratingRows = Object.entries(interviewOutcome.ratings).map(
   ([ratingId, scoreText]) => {
-    const [filledCount, totalCount] = scoreText.split("/").map(Number);
+    const [filledCount, totalCount] = scoreText.split('/').map(Number)
 
     return {
       caption: ratingCaptions[ratingId],
       scoreText,
       filledCount,
-      totalCount,
-    };
-  },
-);
+      totalCount
+    }
+  }
+)
 </script>

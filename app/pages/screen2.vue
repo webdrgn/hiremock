@@ -21,6 +21,10 @@
 <script setup>
 const { toNextScreen } = useScreenNavigate();
 
+useHead({
+  title: 'Подключение к встрече'
+})
+
 onMounted(() => {
   setTimeout(toNextScreen, 3000);
 });

@@ -36,5 +36,9 @@
 </template>
 
 <script setup>
-const { currentScreen, toNextScreen, getCurrentScreen } = useScreenNavigate();
+const { toNextScreen } = useScreenNavigate();
+
+useHead({
+  title: 'Вставь резюме или кратко опиши свой опыт'
+})
 </script>
