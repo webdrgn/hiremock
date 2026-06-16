@@ -12,35 +12,20 @@ jobs:
     concurrency:
       group: pages
       cancel-in-progress: true
-    env:
-      NPM_CONFIG_USERCONFIG: ${{ github.workspace }}/.npmrc
-      NPM_CONFIG_REGISTRY: https://registry.npmjs.org/
-      NODE_AUTH_TOKEN: ""
-      NPM_TOKEN: ""
 
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: 'npm'
 
-      - name: Sanitize npm config (remove auth)
-        shell: bash
-        run: |
-          echo "Writing repo-local .npmrc" && rm -f "$NPM_CONFIG_USERCONFIG" || true
-          echo "registry=https://registry.npmjs.org/" > "$NPM_CONFIG_USERCONFIG"
-          echo "Before cleanup:" && npm config list || true
-          rm -f $HOME/.npmrc || true
-          npm config delete "//registry.npmjs.org/:_authToken" --location=user || true
-          npm config delete "//registry.npmjs.org/:_authToken" --location=global || true
-          npm config delete "//npm.pkg.github.com/:_authToken" --location=user || true
-          npm config delete "//npm.pkg.github.com/:_authToken" --location=global || true
-          echo "After cleanup:" && npm config list || true
-
       - name: Install dependencies
-        run: npm ci --no-audit --no-fund --userconfig=${{ github.workspace }}/.npmrc
+        run: npm ci --no-audit --no-fund
+        env:
+          NODE_AUTH_TOKEN: ""
+          NPM_TOKEN: ""
       - run: npm run generate
       - run: touch .output/public/.nojekyll
 
