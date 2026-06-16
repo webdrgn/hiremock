@@ -1,75 +1,23 @@
-# Nuxt Minimal Starter
+# pixel-resume
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+🎮 Интерактивное pixel-art резюме в формате мини-квеста на Nuxt 4.
 
-## Setup
+## 🌐 Демо
 
-Make sure to install dependencies:
+Продакшен: [https://webdrgn.github.io/pixel-resume](https://webdrgn.github.io/pixel-resume)
 
-```bash
-# npm
-npm install
+## 🧰 Технологии
 
-# pnpm
-pnpm install
+![Nuxt](https://img.shields.io/badge/Nuxt-00DC82?style=for-the-badge&logo=nuxt&logoColor=white)
+![Vue.js](https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-0F172A?style=for-the-badge&logo=tailwindcss&logoColor=06B6D4)
+![PrimeVue](https://img.shields.io/badge/PrimeVue-10B981?style=for-the-badge&logo=primevue&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-1E293B?style=for-the-badge&logo=typescript&logoColor=3178C6)
+![GitHub Pages](https://img.shields.io/badge/GitHub_Pages-121013?style=for-the-badge&logo=github&logoColor=white)
 
-# yarn
-yarn install
+## 🏗️ Архитектура
 
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+- 📄 Экранная структура по страницам (`screen1`-`screen4`)
+- 🧠 Бизнес-логика в composables
+- 🧱 Переиспользуемые UI-блоки в components
+- 🧭 Глобальный middleware для управления пользовательским потоком
