@@ -21,11 +21,13 @@ jobs:
           node-version: 22
           cache: 'npm'
 
+      - name: Prepare clean npm config
+        run: |
+          rm -f "$GITHUB_WORKSPACE/.npmrc"
+          printf "registry=https://registry.npmjs.org/\nalways-auth=false\n" > "$GITHUB_WORKSPACE/.npmrc"
+
       - name: Install dependencies
-        run: npm ci --no-audit --no-fund
-        env:
-          NODE_AUTH_TOKEN: ""
-          NPM_TOKEN: ""
+        run: npm ci --no-audit --no-fund --userconfig "$GITHUB_WORKSPACE/.npmrc"
       - run: npm run generate
       - run: touch .output/public/.nojekyll
 
