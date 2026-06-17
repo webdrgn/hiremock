@@ -20,7 +20,7 @@ export default defineNuxtConfig({
       ]
     }
   },
-  modules: ['@primevue/nuxt-module', 'nuxt-auth-utils'],
+  modules: ['@primevue/nuxt-module'],
   ssr: false,
   primevue: {
     options: {
