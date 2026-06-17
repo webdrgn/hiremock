@@ -1,7 +1,8 @@
 {
-  "name": "pixel-resume",
+  "name": "hiremock",
   "type": "module",
   "private": true,
+  "license": "UNLICENSED",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
