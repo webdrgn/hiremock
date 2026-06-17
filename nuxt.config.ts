@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import Lara from '@primeuix/themes/lara';
 
-const productionBaseUrl = '/pixel-resume/';
+const productionBaseUrl = '/hiremock/';
 
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',

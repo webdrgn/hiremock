@@ -50,24 +50,6 @@
 ![PrimeVue](https://img.shields.io/badge/PrimeVue-10B981?style=for-the-badge&logo=primevue&logoColor=white)
 ![GitHub Pages](https://img.shields.io/badge/GitHub_Pages-121013?style=for-the-badge&logo=github&logoColor=white)
 
-## 🏗️ Архитектура
-
-```
-app/
-├── pages/          # screen1–screen4 — экранный поток
-├── composables/    # бизнес-логика и навигация
-├── components/     # переиспользуемые UI-блоки
-├── middleware/     # глобальный redirect по этапам
-└── storage/        # сценарии вопросов и ответов
-```
-
-## 🛠️ Локальный запуск
-
-```bash
-npm install
-npm run dev
-```
-
 ## 📄 Лицензия
 
 Репозиторий публичный только для портфолио. Копирование, форки и использование кода запрещены без письменного разрешения автора — см. [LICENSE](LICENSE).
